@@ -1,12 +1,11 @@
 ---
-title: "My title"
+title: "Marriages in Toronto before and after the pandemic"
 subtitle: "My subtitle if needed"
 author: 
   - Xinxiang Gao
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/xgao28/Marriage-Licence-Statistics"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -22,78 +21,24 @@ library(tidyverse)
 data <- read_csv("../data/analysis_data/analysis_data.csv")
 ```
 
-
-# Introduction
-
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
-
-The remainder of this paper is structured as follows. @sec-data....
-
-
-
-# Data {#sec-data}
-
-
+@opendatatoronto, @citeR, @rohan
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
+#| label: fig-date
+#| fig-cap: Number of marriage licenses over time
 #| echo: false
 
 ggplot(data, aes(x = date, y = marriage_licenses)) +
-  geom_line(alpha = 0.8) +
+  # geom_line(color = "#2C3E50", size = 1.2, alpha = 0.8) +  # Thicker line, custom color
+  geom_point(color = "#E74C3C", size = 2, alpha = 0.8) +   # Add points for better visibility
+  labs(
+    title = "Number of Marriage Licenses Over Time",
+    subtitle = "An overview of trends in marriage licenses issued",
+    x = "Date",
+    y = "Number of Marriage Licenses"
+  ) + 
   theme_minimal()
 ```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
-
-
-
-
-# Discussion
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
 
 
 

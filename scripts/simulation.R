@@ -9,10 +9,12 @@
 library(tidyverse)
 
 #### Simulate data ####
-# [...ADD CODE HERE...]
 num_of_dates <- 100
-start_date <- 
-end_date <- 
+set.seed(304)
+
+# Define the start and end date
+start_date <- as.Date("2018-01-01")
+end_date <- as.Date("2023-12-31")
 
 
 data <- tibble(
