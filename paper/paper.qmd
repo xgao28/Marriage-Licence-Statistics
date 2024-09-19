@@ -1,6 +1,6 @@
 ---
 title: "Marriages in Toronto before and after the pandemic"
-subtitle: "My subtitle if needed"
+# subtitle: "My subtitle if needed"
 author: 
   - Xinxiang Gao
 thanks: "Code and data are available at: https://github.com/xgao28/Marriage-Licence-Statistics"
@@ -10,6 +10,8 @@ format: pdf
 number-sections: true
 bibliography: references.bib
 ---
+
+This paper explores trends in marriage licenses in Toronto, with a focus on how the COVID-19 pandemic affected marital patterns of residents in Toronto. Utilizing a dataset of marriage license registrations from 2015 to 2023, we perform explanatory data analysis to visualize changes in marriage rates before, during, and after the pandemic. Our analysis reveals a decline in licenses issued during the pandemic, followed by a sharp rebound in the post-pandemic period, as in @fig-date. On the other hand, in general the total marriage licenses in Toronto does not reveal a boost after the pandemic. Instead, the recover is slow and steady, as in @fig-year.
 
 ```{r}
 #| include: false
@@ -21,16 +23,18 @@ library(tidyverse)
 data <- read_csv("../data/analysis_data/analysis_data.csv")
 ```
 
-@opendatatoronto, @citeR, @rohan
+The project is done by using R (@citeR) and data is retrieved open data toronto API (@opendatatoronto).
 
 ```{r}
 #| label: fig-date
 #| fig-cap: Number of marriage licenses over time
 #| echo: false
+#| warning: false
+#| message: false
 
 ggplot(data, aes(x = date, y = marriage_licenses)) +
-  # geom_line(color = "#2C3E50", size = 1.2, alpha = 0.8) +  # Thicker line, custom color
-  geom_point(color = "#E74C3C", size = 2, alpha = 0.8) +   # Add points for better visibility
+  geom_line(color = "#2C3E50", alpha = 0.8) +  # Thicker line, custom color
+  # geom_point(color = "#E74C3C", size = 2, alpha = 0.8) +   # Add points for better visibility
   labs(
     title = "Number of Marriage Licenses Over Time",
     subtitle = "An overview of trends in marriage licenses issued",
@@ -38,6 +42,26 @@ ggplot(data, aes(x = date, y = marriage_licenses)) +
     y = "Number of Marriage Licenses"
   ) + 
   theme_minimal()
+```
+
+```{r}
+#| label: fig-year
+#| fig-cap: Number of total marriage licenses each year
+#| echo: false
+#| warning: false
+#| message: false
+
+data_g <- data %>%
+  group_by(year) %>%
+  summarise(total_ml = sum(marriage_licenses, na.rm = TRUE)) %>%
+  ungroup()
+
+  barplot(data_g$total_ml,
+          names.arg = data_g$year,
+          xlab = "Year",
+          ylab = "Number of Incidents",
+          main = "Incidents by Year",
+          col = "skyblue")
 ```
 
 
